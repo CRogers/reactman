@@ -12,7 +12,7 @@ function randomInt(max: number): number {
 let vectors = {};
 
 export class Position {
-    constructor(public x: number, public y: number) {}
+    private constructor(public x: number, public y: number) {}
 
     // memoize so you can just use javascripts === for equality
     public static at(x: number, y: number): Position {

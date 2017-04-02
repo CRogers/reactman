@@ -5,3 +5,7 @@ export interface Snake {
     tail: Position[],
     food: Position
 }
+
+export interface Reactman {
+    pacman: Position
+}

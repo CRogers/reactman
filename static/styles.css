@@ -4,7 +4,7 @@ body {
   font-size: 13px;
 }
 
-.snake-game {
+.reactman-game {
   position: relative;
   margin-top: 10px;
 }
@@ -14,19 +14,6 @@ body {
   background: lightgray;
 }
 
-.square.head {
-  background: darkgreen;
-}
-
-.square.tail {
-  background: green;
-}
-
-.square.food {
-  background: red;
-  color: pink;
-  text-align: center;
-}
-.square.food:before {
-  content: "~"; /* Bacon */
+.square.wall {
+  background: darkgrey;
 }
