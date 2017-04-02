@@ -1,12 +1,8 @@
 /// <reference path="../typings/tsd.d.ts" />
-
-import { h } from 'virtual-dom'
-import * as _ from 'lodash'
-
-import { Position } from './position'
-import { Snake, Reactman } from './types'
+import { h } from "virtual-dom";
+import { Position } from "./position";
 import { HEIGHT, WIDTH, MAP, GroundType } from "./map";
-import { snake } from "./snake";
+import { Reactman } from "./types";
 
 function px(num) { return `${num}px` }
 
@@ -16,7 +12,11 @@ function square(x: number, y: number, size: number, extraClass?: string) {
     return h('div', {className, style}, []);
 }
 
-function classForPosition(position: Position): string {
+function classForPosition(position: Position, reactman: Reactman): string {
+    if (reactman.pacman.equals(position)) {
+        return 'pacman';
+    }
+
     switch (MAP.groundAt(position)) {
         case GroundType.Wall:
             return 'wall';
@@ -25,13 +25,13 @@ function classForPosition(position: Position): string {
     }
 }
 
-export function grid(gap: number, size: number): VirtualDOM.VTree {
+export function grid(gap: number, size: number, reactman: Reactman): VirtualDOM.VTree {
     let actualGap = gap + size;
     let pixelHeight = px(actualGap * HEIGHT);
     let squares = [];
     for(let y = 0; y < HEIGHT; y++) {
         for (let x = 0; x < WIDTH; x++) {
-            let extraClass = classForPosition(Position.at(x, y));
+            let extraClass = classForPosition(Position.at(x, y), reactman);
             squares.push(square(x * actualGap, y * actualGap, size, extraClass));
         }
     }

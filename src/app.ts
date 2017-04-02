@@ -1,21 +1,15 @@
-/// <reference path="../typings/tsd.d.ts" />
-
-import './libsetup.ts'
-
-import * as $ from 'jquery'
-
-import { keyPresses } from './inputs'
-import { grid } from './view'
-import { snake } from './snake';
-import { vdomBaconjsRenderer } from './virtual-dom-renderer'
-import * as Bacon from 'baconjs'
+import "./libsetup.ts";
+import * as $ from "jquery";
+import { grid } from "./view";
+import { vdomBaconjsRenderer } from "./virtual-dom-renderer";
+import { reactman } from "./reactman";
 
 const GAP = 2;
 const SIZE = 20;
 
 $(() => {
-    const snakeGrid = Bacon.constant({}).map(snakeData => {
-        return grid(GAP, SIZE);
+    const snakeGrid = reactman().map(rm => {
+        return grid(GAP, SIZE, rm);
     });
     return vdomBaconjsRenderer($('.game')[0], snakeGrid);
 });

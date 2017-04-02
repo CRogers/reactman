@@ -17,3 +17,7 @@ body {
 .square.wall {
   background: darkgrey;
 }
+
+.square.pacman {
+  background: purple;
+}
