@@ -7,13 +7,13 @@ export enum GroundType {
 }
 
 const rawMap = `
-XXXXXXXX
-X      X
-X XXXX X
-X XXXX X
-X XXXX X
-X      X
-XXXXXXXX
+XXXXXXXXX
+X       X
+X XX XX X
+X XX XX X
+X XX XX X
+X       X
+XXXXXXXXX
 `.trim()
     .split('\n')
     .map(line => line.split('')

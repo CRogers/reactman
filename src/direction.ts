@@ -16,11 +16,11 @@ export class Direction {
     }
 
     public static left(): Direction {
-        return Direction.fromComponents(0, -1)
+        return Direction.fromComponents(-1, 0)
     }
 
     public static right(): Direction {
-        return Direction.fromComponents(-1, 0)
+        return Direction.fromComponents(1, 0)
     }
 
     public static fromComponents(x: number, y: number): Direction {
