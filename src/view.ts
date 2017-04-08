@@ -40,6 +40,9 @@ export function grid(gap: number, size: number, reactman: Reactman): VirtualDOM.
             squares.push(square(x * actualGap, y * actualGap, size, extraClass));
         }
     }
-    return h('.reactman-game', {style: {height: pixelHeight}}, squares);
+    return h('div', {}, [
+        h('.score', {}, ""+reactman.score),
+        h('.reactman-game', {style: {height: pixelHeight}}, squares)
+    ]);
 
 }

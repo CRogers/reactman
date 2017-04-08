@@ -7,6 +7,8 @@ import { Direction } from "./direction";
 
 const map = MAP;
 
+const DOT_SCORE = 10;
+
 interface PositionAndDirection {
     position: Position;
     direction: Direction;
@@ -62,10 +64,20 @@ function dots(pacman: Property<Position>): Stream<Dot[]> {
     return Bacon.zipAsArray(dots);
 }
 
+function score(allDots: Stream<Dot[]>) {
+    return allDots.map(dots => {
+        const dotsEaten = _.filter(dots, dot => dot.state === DotState.EATEN).length;
+        return dotsEaten * DOT_SCORE;
+    });
+}
+
 export function reactman(keyPresses: Observable<Direction>): Property<Reactman> {
-    let pacmanPosition = pacman(keyPresses);
+    const pacmanPosition = pacman(keyPresses);
+    const allDots = dots(pacmanPosition);
+
     return Bacon.combineTemplate({
         pacman: pacmanPosition,
-        dots: dots(pacmanPosition)
+        dots: allDots,
+        score: score(allDots)
     });
 }

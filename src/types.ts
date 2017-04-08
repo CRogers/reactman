@@ -12,5 +12,6 @@ export interface Dot {
 
 export interface Reactman {
     pacman: Position,
-    dots: Dot[]
+    dots: Dot[];
+    score: number;
 }
