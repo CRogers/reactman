@@ -3,21 +3,35 @@ import { Direction } from "./direction";
 
 export enum GroundType {
     Wall,
-    Space
+    Space,
+    Dot
+}
+
+export function isMovable(groundType: GroundType): boolean {
+    return groundType !== GroundType.Wall;
 }
 
 const rawMap = `
 XXXXXXXXX
-X       X
-X XX XX X
-X XX XX X
-X XX XX X
-X       X
+X.......X
+X.XX.XX.X
+X.XX.XX.X
+X.XX.XX.X
+X.......X
 XXXXXXXXX
 `.trim()
     .split('\n')
     .map(line => line.split('')
-        .map(char => char === 'X' ? GroundType.Wall : GroundType.Space));
+        .map(char => {
+            switch (char) {
+                case 'X':
+                    return GroundType.Wall;
+                case ' ':
+                    return GroundType.Space;
+                case '.':
+                    return GroundType.Dot;
+            }
+        }));
 
 console.log(rawMap)
 
@@ -56,22 +70,21 @@ class Map {
         }
     }
 
-    public directionToGo(at: Position, facing: Direction, wantsToGo: Direction): Position {
-        const nexts = this.fromTo[at.toString()];
-
-        if (nexts.indexOf(wantsToGo) !== -1) {
-            return at.advance(wantsToGo);
-        }
-
-        if (nexts.indexOf(facing) !== -1) {
-            return at.advance(facing);
-        }
-
-        return at;
-    }
-
     public groundAt(position: Position): GroundType {
         return rawMap[position.y][position.x];
+    }
+
+    public allOfType(groundType: GroundType): Position[] {
+        const positions = [];
+        for (let y = 0; y < HEIGHT; y++) {
+            for (let x = 0; x < WIDTH; x++) {
+                if (rawMap[y][x] === groundType) {
+                    positions.push(Position.at(x, y));
+                }
+            }
+        }
+
+        return positions;
     }
 }
 

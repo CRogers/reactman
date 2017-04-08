@@ -21,3 +21,11 @@ body {
 .square.pacman {
   background: purple;
 }
+
+.square.dot {
+  text-align: center;
+}
+
+.square.dot:before {
+  content: "•";
+}

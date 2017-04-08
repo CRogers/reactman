@@ -2,7 +2,8 @@
 import { h } from "virtual-dom";
 import { Position } from "./position";
 import { HEIGHT, WIDTH, MAP, GroundType } from "./map";
-import { Reactman } from "./types";
+import { Reactman, DotState } from "./types";
+import * as _ from 'lodash';
 
 function px(num) { return `${num}px` }
 
@@ -15,6 +16,10 @@ function square(x: number, y: number, size: number, extraClass?: string) {
 function classForPosition(position: Position, reactman: Reactman): string {
     if (reactman.pacman.equals(position)) {
         return 'pacman';
+    }
+
+    if (_.some(reactman.dots, dot => dot.position === position && dot.state === DotState.ALIVE)) {
+        return 'dot';
     }
 
     switch (MAP.groundAt(position)) {

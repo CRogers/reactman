@@ -1,11 +1,16 @@
 import { Position } from './position'
 
-export interface Snake {
-    head: Position,
-    tail: Position[],
-    food: Position
+export enum DotState {
+    ALIVE,
+    EATEN
+}
+
+export interface Dot {
+    state: DotState;
+    position: Position;
 }
 
 export interface Reactman {
-    pacman: Position
+    pacman: Position,
+    dots: Dot[]
 }
